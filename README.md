@@ -89,19 +89,10 @@ Wants=network-online.target
 Type=simple
 User=snort
 Group=snort
-ExecStart=/usr/local/bin/snort \
-    -c /usr/local/etc/snort/snort.lua \
-    -i enp0s3 \
-    -s 65535 \
-    -k none \
-    -l /var/log/snort
+ExecStart=/usr/local/bin/snort -c /usr/local/etc/snort/snort.lua -i enp0s3 -s 65535 -k none -l /var/log/snort
 Restart=on-failure
 RestartSec=5
-
-# Allow Snort to lock memory if needed
 LimitMEMLOCK=infinity
-
-# Increase the maximum number of open files
 LimitNOFILE=65536
 
 [Install]
