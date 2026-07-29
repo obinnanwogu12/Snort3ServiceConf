@@ -33,12 +33,40 @@ RemainAfterExit=yes
 WantedBy=default.target
 ```
 
+### 4. Enable the Service
+
+Reload the systemd daemon:
+
+```bash
+sudo systemctl daemon-reload
+```
+
+Enable the service to start automatically on boot:
+
+```bash
+sudo systemctl enable snort3-nic.service
+```
+
+Start the service immediately:
+
+```bash
+sudo systemctl start snort3-nic.service
+```
+
+### 5. Verify the Service
+
+Check the service status:
+
+```bash
+sudo systemctl status snort3-nic.service
+```
+
 
 ## Create a Snort 3 Systemd Service
 
 To run Snort 3 automatically as a background service at system startup, create a `systemd` service unit.
 
-### 3. Create the Service File
+### 6. Create the Service File
 
 Create a new systemd service file:
 
@@ -46,7 +74,7 @@ Create a new systemd service file:
 sudo nano /etc/systemd/system/snort3.service
 ```
 
-### 4. Add the Service Configuration
+### 7. Add the Service Configuration
 
 Paste the following configuration into the file:
 
@@ -61,4 +89,36 @@ ExecStart=/usr/local/bin/snort -c /usr/local/etc/snort/snort.lua -i ensp03 -A al
 
 [Install]
 WantedBy=multi-user.target
+```
+
+### 8. Reload Systemd
+
+Reload the systemd daemon to recognize the new service:
+
+```bash
+sudo systemctl daemon-reload
+```
+
+### 9. Enable the Service
+
+Enable the service so it starts automatically on boot:
+
+```bash
+sudo systemctl enable snort3.service
+```
+
+### 10. Start the Service
+
+Start the Snort 3 service immediately:
+
+```bash
+sudo systemctl start snort3.service
+```
+
+### 11. Verify the Service Status
+
+Check that the service is running successfully:
+
+```bash
+sudo systemctl status snort3.service
 ```
