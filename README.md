@@ -80,12 +80,29 @@ Paste the following configuration into the file:
 
 ```ini
 [Unit]
-Description=Snort 3 NIDS Daemon
-After=syslog.target network.target
+Description=Snort 3 Network Intrusion Detection System
+Documentation=https://docs.snort.org/
+After=network-online.target
+Wants=network-online.target
 
 [Service]
 Type=simple
-ExecStart=/usr/local/bin/snort -c /usr/local/etc/snort/snort.lua -i ensp03 -A alert_fast -l /var/log/snort/ -D -s 65535 -k none
+User=snort
+Group=snort
+ExecStart=/usr/local/bin/snort \
+    -c /usr/local/etc/snort/snort.lua \
+    -i enp0s3 \
+    -s 65535 \
+    -k none \
+    -l /var/log/snort
+Restart=on-failure
+RestartSec=5
+
+# Allow Snort to lock memory if needed
+LimitMEMLOCK=infinity
+
+# Increase the maximum number of open files
+LimitNOFILE=65536
 
 [Install]
 WantedBy=multi-user.target
