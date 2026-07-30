@@ -87,8 +87,6 @@ Wants=network-online.target
 
 [Service]
 Type=simple
-User=snort
-Group=snort
 ExecStart=/usr/local/bin/snort -c /usr/local/etc/snort/snort.lua -i enp0s3 -A alert_fast -s 65535 -k none -l /var/log/snort
 Restart=on-failure
 RestartSec=5
